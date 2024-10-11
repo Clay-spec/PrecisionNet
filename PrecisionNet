@@ -161,31 +161,54 @@ function PrecisionNet:Payload(RemoteEvent, Args, Options)
     Options = Options or {}
 
     if Options.Encrypt == "Base64" then
-        Args = Base64EncodeArgs(args)
+        Args = Base64EncodeArgs(Args)
     elseif Options.Encrypt == "Substitution" then
-        args = SubCipher(Args)
+        Args = SubCipher(Args)
     end
 
     if Options.Delay then
         task.wait(type(Options.Delay) == "function" and Options.Delay() or Options.Delay)
     end
 
-    if Options.Condition and not options.Condition() then
+    if Options.Condition and not Options.Condition() then
         if Options.Fallback then
-            Options.Fallback()
+            Options.Fallback() -- Run the fallback function if the condition isn't met
         else
-            CustomEH("Condition not met, firing aborted.")
+            CustomEH("Condition not met, firing aborted.") -- Custom error handler
         end
         return
     end
 
-    local Retries = options.Retries or 1
-    local MaxTimeOut = options.MaxTimeout or 10
-    RetryRE(RemoteEvent, Args, Retries, MaxTimeOut)
+    local Retries = Options.Retries or 1
+    local MaxTimeOut = Options.MaxTimeout or 10
+    local Attempts = 0
+    local Success = false
+    local StartTime = tick()
 
-    if Options.Logging then
+    while Attempts < Retries and not Success do
+        Success, Result = pcall(function()
+            RemoteEvent:FireServer(table.unpack(Args))
+        end)
+
+        if Success then
+            break
+        else
+            Attempts = Attempts + 1
+            print("Retrying RemoteEvent, attempt " .. Attempts)
+
+            if tick() - StartTime > MaxTimeOut then
+                error("Max timeout exceeded while attempting to fire RemoteEvent.")
+                return
+            end
+            task.wait(1)
+        end
+    end
+
+    if Success and Options.Logging then
         local TimeStamp = os.date("%X")
-        print("[INFO] " .. Timestamp .. " - RemoteEvent fired with arguments: ", table.unpack(Args))
+        print("[INFO] " .. TimeStamp .. " - RemoteEvent fired successfully with arguments: ", table.unpack(Args))
+    elseif not Success then
+        CustomEH("Failed to fire RemoteEvent after " .. Retries .. " retries.")
     end
 end
 
