@@ -83,7 +83,7 @@ function PrecisionNet:GetGoal(settings)
             ClosestGoal = Obj
         end
     end
-    return
+    return ClosestGoal
 end
 
 local function Base64EncodeArgs(Args)
