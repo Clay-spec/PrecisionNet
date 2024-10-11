@@ -4,12 +4,6 @@ type DistanceEntry = {
     arc: number
 }
 
-type DistanceEntry = {
-    minDist: number,
-    maxDist: number,
-    arc: number
-}
-
 type DistanceCalculation = {
     [number]: DistanceEntry[]
 }
