@@ -1,0 +1,17 @@
+local HttpService = game:GetService("HttpService")
+
+local Url = "https://raw.githubusercontent.com/YourUsername/YourRepoName/main/PrecisionNet.lua"
+
+getgenv().PrecisionNet = function()
+    local success, response = pcall(function()
+        return HttpService:GetAsync(Url)
+    end)
+
+    if success then
+        getgenv().PrecisionNet = loadstring(response)()
+        print("PrecisionNet module loaded successfully.")
+        return
+    else
+        warn("Failed to load PrecisionNet module: " .. response)
+    end
+end
