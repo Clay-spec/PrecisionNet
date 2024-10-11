@@ -80,6 +80,26 @@ function PrecisionNet:GetGoal(settings)
     return ClosestGoal
 end
 
+function PrecisionNet:GetDistanceInfo(goal, settings)
+    local Player = settings.Player
+    local Character = Player.Character
+
+    local Torso = Character.Torso
+    local Distance = (Torso.Position - goal.Position).Magnitude
+
+    for range, entries in next, settings.ArcRanges do
+        if Distance <= range then
+            for _, entry in next, entries do
+                if Distance >= entry.minDist and Distance <= entry.maxDist then
+                    return entry.arc, Distance
+                end
+            end
+        end
+    end
+
+    return nil, Distance
+end
+
 local function Base64EncodeArgs(Args)
     local EncodedArgs = {}
     for _, Arg in ipairs(Args) do
