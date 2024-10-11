@@ -1,5 +1,9 @@
 # **Precision Net**
 
+This is a <span style="color:red">red</span> text.
+
+This is a <span style="color:blue">blue</span> text.
+
 **Precision Net** is a **Lua-based module developed primarily for use in Roblox basketball aimbot scripts.** This module is typically used in **enables precise goal detection and shot calculations by analyzing distances, arc ranges, and player positioning in real-time.**, and it helps developers achieve **Goal Detection, Arc Calculation, RemoteEvent Interaction, and other Customiziable features**.
 
 ## Features
