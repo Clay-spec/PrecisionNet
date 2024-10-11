@@ -66,3 +66,43 @@ local options = {
 -- Fire the RemoteEvent using the Payload function
 net:Payload(BasketballRemoteEvent, args, options)
 ```
+> Payload Remote w/ Response
+```lua
+local BasketballRemoteEvent = game.ReplicatedStorage:WaitForChild("BasketballRemoteEvent")
+
+-- Define the arguments to pass with the RemoteEvent
+local args = {
+    Vector3.new(0, 100, 0), -- Direction for the shot
+    Vector3.new(10, 20, 30), -- Player's position
+    75 -- Shot power
+}
+
+-- Define the options for the Payload function
+local options = {
+    Encrypt = "Base64",   -- Optional: Encrypt the arguments with Base64 encoding
+    Retries = 3,          -- Retry up to 3 times if the event fails
+    Delay = 0.5,          -- Wait 0.5 seconds before firing the event
+    Logging = true,       -- Log the event firing to the console
+    Condition = function() -- Optional: Only fire if certain conditions are met
+        return game.Players.LocalPlayer.Character ~= nil
+    end,
+    Fallback = function()  -- Optional: A fallback function if the condition is not met
+        print("Condition not met, RemoteEvent not fired.")
+    end
+}
+
+-- Fire the RemoteEvent using the PayloadWithResponse function and directly handle the response
+net:PayloadWithResponse(BasketballRemoteEvent, args, options, function(responseArgs)
+    -- Directly handle the response from the server
+    if #responseArgs > 0 then
+        print("Received response from server!")
+        
+        -- Loop through and print each response argument
+        for i, response in ipairs(responseArgs) do
+            print("Response[" .. i .. "]:", response)
+        end
+    else
+        print("No response received from the server.")
+    end
+end)
+```
