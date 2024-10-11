@@ -1,6 +1,6 @@
 local HttpService = game:GetService("HttpService")
 
-local Url = "https://raw.githubusercontent.com/YourUsername/YourRepoName/main/PrecisionNet.lua"
+local Url = "https://raw.githubusercontent.com/Clay-spec/PrecisionNet.lua/refs/heads/main/PrecisionNet"
 
 getgenv().PrecisionNet = function()
     local success, response = pcall(function()
