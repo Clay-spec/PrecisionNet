@@ -8,22 +8,6 @@
 - **Remote Event Handling**: Manages interactions with RemoteEvents, including retries and fallback mechanisms.
 
 ## Usage
+> Loader
 ```lua
--- Example usage for the module
-local PrecisionNet = getgenv().PrecisionNet
-
--- Initialize PrecisionNet
-local settings = {
-    Player = game.Players.LocalPlayer,
-    Goal = {
-        { Name = "here", ClassName = "BasePart" }
-    },
-    ArcRanges = {
-        [75] = {
-            { minDist = 57, maxDist = 59, arc = 50 },
-            { minDist = 59, maxDist = 60, arc = 45 },
-        }
-    }
-}
-
-local Net = PrecisionNet.new(settings)
+local PrecisionNet = getgenv().PrecisionNet```
