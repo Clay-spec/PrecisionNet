@@ -32,3 +32,8 @@ local settings = {
 ```lua
 local Net = PrecisionNet.new(settings)
 ```
+
+> Retrieve Goal
+```lua
+local GetGoal = Net:GetGoal()
+```
