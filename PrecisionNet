@@ -1,4 +1,3 @@
-```lua
 type DistanceEntry = {
     minDist: number,
     maxDist: number,
@@ -186,4 +185,3 @@ function PrecisionNet:PayloadWithResponse(RemoteEvent, Args, Options, ResponseCa
     end)
 
 return PrecisionNet
-```
