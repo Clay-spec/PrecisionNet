@@ -10,4 +10,25 @@
 ## Usage
 > Loader
 ```lua
-local PrecisionNet = getgenv().PrecisionNet```
+local PrecisionNet = getgenv().PrecisionNet
+```
+
+> Customize Settings
+```lua
+local settings = {
+    Player = game.Players.LocalPlayer,
+    Goal = {
+        { Name = "here", ClassName = "BasePart" }
+    },
+    ArcRanges = {
+        [75] = {
+            { minDist = 57, maxDist = 59, arc = 50 },
+            { minDist = 59, maxDist = 60, arc = 45 },
+        }
+    }
+}
+```
+> Constructor Class
+```lua
+local Net = PrecisionNet.new(settings)
+```
